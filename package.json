@@ -4,6 +4,8 @@
   "description": "Generate custom image fillers. Set the alpha stream to generate transparent filler images.",
   "main": "index.js",
   "dependencies": {
+    "ejs": "^2.3.1",
+    "express": "^4.12.4",
     "node-png": "~0.4.3"
   },
   "devDependencies": {},
@@ -26,5 +28,6 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/ordonezalex/alphaAwesomeness.js/issues"
-  }
+  },
+  "homepage": "https://github.com/ordonezalex/alphaAwesomeness.js"
 }

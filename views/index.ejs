@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Alpha Awesomeness</title>
+</head>
+<body>
+	<h1>Page Dimentions</h1>
+	
+	<div id="login">
+		<form action="/" method="get">
+			<label for="Width">Width:</label>
+			<input type="text" id="Width" placeholder="640"/>
+
+			<label for="Height">Height:</label>
+			<input type="text" id="Height" placeholder="360"/>
+
+			<input type="submit" value="Get Link"/>
+		</form>
+	</div>
+
+<div class="content" id="alpha"></div>
+
+<script type="text/javascript" src="alphaAwesomeness.js/js/pnglib.js"></script>
+
+<script type="text/javascript">
+
+// var request = window.location.href;
+
+var width = 250;
+var height = 200;
+var colordepth = 256;
+
+var img = new PNGlib(width, height, colordepth);
+var bg = img.color (0, 0, 0, 0);
+
+document.getElementById('alpha').innerHTML = '<img src="data:image/png;base64,'+img.getBase64()+'">';
+
+</script>
+</body>
+</html>

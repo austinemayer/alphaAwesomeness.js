@@ -1,46 +1,101 @@
 
-var express = require("express");
-var app = express();
+var express = require("express"),
+	app = express();
+
+var fs = require('fs'),
+	PNG = require('node-png').PNG;
 
 app.set("view engine","ejs");
+app.use(express.static(__dirname + '/public'));
+
 
 app.get("/", function(req, res){
 	res.render("index");
 });
 
-app.get("/:width/:height?/:color?", function(req, res){
-	// var width = req.params.width;
-	// var height = req.params.height;
-	// var color = req.params.color;
-	// res.render("index");
+app.get("/:width/:height?/:color?/:alpha?", function(req, res){
 
-	var width = 250;
-	var height = 200;
-	var colordepth = 256;
+	//Documention -- https://www.npmjs.com/package/node-png
+
+	//getting color from url.
+	var color = req.params.color;
+	//converting hex to rgb
+    var hex = parseInt(color, 16),
+    	r = (hex >> 16) & 255,
+    	g = (hex >> 8) & 255,
+    	b = hex & 255;
 	
-	var img = new PNGlib(width, height, colordepth);
-	var bg = img.color (200, 200, 200, 1);
+    //creates new instance of png with height and width set in params.
+	var png = new PNG({
+	    width: req.params.width,
+	    height: req.params.height,
+	    filterType: -1
+	});
 
-	res.send('<img src="data:image/png;base64,'+img.getBase64()+'">');
+	//looping over every pixel in png giving each an rgba value.
 
-	// res.render("index", {});
+	for (var y = 0; y < png.height; y++) {
+	    for (var x = 0; x < png.width; x++) {
+	        var idx = (png.width * y + x) << 2;
+
+	        png.data[idx  ] = r;
+	        png.data[idx+1] = g;
+	        png.data[idx+2] = b;
+	        png.data[idx+3] = req.params.alpha;
+	    }
+	}
+
+	//streaming the png to the directory for now untill converted to base64.
+	// png.pack().pipe(fs.WriteStream('./placeholder.png'));
+	// fs.writeFile("placeholder.png", png, 'base64')
+
+// res.send(png);
+
+  // This opens up the writeable stream to `output`
+  var writeStream = png.pack().pipe(fs.createWriteStream('./placeholder.png'));
+
+  // This pipes the POST data to the file
+  
+
+  // After all the data is saved, respond with a simple html form so they can post more data
+
+  // stream.write(buff);
+  	var base64Image =  new Buffer(writeStream);
+
+
+  req.on('start', function () {
+    res.write(base64Image);
+    newImg = base64Image.toString("base64");
+    res.send('<img src="'+newImg+'"/>');
+  });
+
+// fs.writeFile('placeholding.png', png, function (err) {
+//   if (err) throw err;
+//   console.log('It\'s saved!');
+// });
+
+    // Currently working on getting png data to base64 for output.
+
+ //    var image_origial = './placeholder.png';
+
+ //    fs.readFile(image_origial, function(err, original_data){
+	//     fs.writeFile('image_orig.jpg', original_data, function(err) {});
+	//     var base64Image = original_data.toString('base64');
+	//     res.send('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABV8AAAT/'+base64Image+'">');
+	// });
+
+	    // var bitmap = fs.readFileSync(png.data);
+	    // console.log(bitmap);
+	    // var base64Image = new Buffer().toString('base64');
+	    // console.log(base64);
+
+	// var base64Image =  new Buffer(png.data).toString("base64");
+
+		// console.log(base64Image);
+
 });
 
 var server = app.listen(3000, function(){
 	console.log("Hey Alex, Run 'node index.js' in console then go to http://localhost:3000/");
 });
-
-// Matches /WIDTHxHEIGHT/COLOR
-
-// app.addRoute("/:width(\d+)x:height(\d+)/:color(\w+)", widthHeightColor);
-
-// http.createServer(function(req, res) {
-//     var path = url.parse(req.url).pathname
-//     var match = app.match(path);
-//     match.fn(req, res, match);
-// }).listen(8888);
-
-// function widthHeightColor(req, res, match) {
-//     return 'Hello';
-// }
 

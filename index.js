@@ -1,3 +1,4 @@
+var http = require('http');
 
 var express = require("express"),
 	app = express();
@@ -37,7 +38,6 @@ app.get("/:width/:height?/:color?/:alpha?", function(req, res){
 	for (var y = 0; y < png.height; y++) {
 	    for (var x = 0; x < png.width; x++) {
 	        var idx = (png.width * y + x) << 2;
-
 	        png.data[idx  ] = r;
 	        png.data[idx+1] = g;
 	        png.data[idx+2] = b;
@@ -45,29 +45,68 @@ app.get("/:width/:height?/:color?/:alpha?", function(req, res){
 	    }
 	}
 
-	//streaming the png to the directory for now untill converted to base64.
-	// png.pack().pipe(fs.WriteStream('./placeholder.png'));
+
+//We are getting an image back! but the response doesnt end...
+
+	png.pack().pipe(res);
+
+
+//Leaving my commented code so you can see some things I was trying.
+
+
+
+
+
 	// fs.writeFile("placeholder.png", png, 'base64')
 
 // res.send(png);
 
   // This opens up the writeable stream to `output`
-  var writeStream = png.pack().pipe(fs.createWriteStream('./placeholder.png'));
+//   var readStream = fs.createReadStream('./placeholder.png',{ flags: 'r',
+//   encoding: 'base64',
+//   fd: null,
+//   mode: 0666,
+//   autoClose: true
+// });
+
+  // readStream.pipe(res);
 
   // This pipes the POST data to the file
-  
+  // console.log(readStream);
 
   // After all the data is saved, respond with a simple html form so they can post more data
 
-  // stream.write(buff);
-  	var base64Image =  new Buffer(writeStream);
+// var base64png = readStream.toString('base64');
 
 
-  req.on('start', function () {
-    res.write(base64Image);
-    newImg = base64Image.toString("base64");
-    res.send('<img src="'+newImg+'"/>');
-  });
+  	// var base64Image =  readStream.toString('base64');
+
+  	// res.send('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABV8AAAT/'+readStream+'">');
+
+  	// res.send('<img src="data:image/png;base64,'+base64Image+'">');
+
+ //  	var options = {
+	//   method: 'GET',
+	//   headers: {
+	//     'Content-Type': 'png',
+	//     'Content-Length': readStream.length
+	//   }
+	// };
+
+	// var req = http.request(options, function(res) {
+	//   res.setEncoding('base64');
+	//   res.on('data', function (chunk) {
+	//     console.log('BODY: ' + chunk);
+	//   });
+	// });
+
+
+  // req.on('start', function () {
+  //   res.write(base64Image);
+  //   newImg = base64Image.toString("base64");
+  //   console.log(newImg);
+  //   res.send('<img src="'+newImg+'"/>');
+  // });
 
 // fs.writeFile('placeholding.png', png, function (err) {
 //   if (err) throw err;

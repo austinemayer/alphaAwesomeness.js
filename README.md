@@ -9,8 +9,14 @@ npm install
 node index.js
 ```
 
+# Build
+
+```
+npm install
+gulp sass
+```
+
 # Contributors
 
 * Austin Mayer
 * Alex Ordonez
-

@@ -11,21 +11,22 @@
   <div class="row">
     <div class="columns small-12 medium-8 large-9">
       <article>
-        <h1>Page Dimensions</h1>
+        <h3>Dimensions</h3>
 
-        <div id="login">
+        <div id="login" class="panel callout">
           <form action="/" method="get">
-            <label for="Width">Width:</label>
-            <input type="text" id="width" placeholder="640"/>
+            <input type="number" id="width" placeholder="Width"/>
 
-            <label for="Height">Height:</label>
-            <input type="text" id="height" placeholder="360"/>
+            <input type="number" id="height" placeholder="Height"/>
 
             <input type="submit" value="Get Link"/>
           </form>
         </div>
 
-        <img class="content" src="http://localhost:3000/200/400/274575/150"/>
+        <h3>Result</h3>
+        <div class="panel">
+          <img class="content" src="/200/400/274575/150"/>
+        </div>
       </article>
     </div>
     <div class="columns small-12 medium-4 large-3">
@@ -49,6 +50,11 @@
             <li class="fn">Alex Ordonez</li>
             <li class="email"><a href="mailto:me@ordonezalex.com">me@ordonezalex.com</a></li>
           </ul>
+        </div>
+        <div class="row">
+          <div class="column small-12">
+            &copy; 2015
+          </div>
         </div>
       </aside>
     </div>

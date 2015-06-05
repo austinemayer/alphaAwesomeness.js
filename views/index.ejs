@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Alpha Awesomeness</title>
+<meta charset="utf-8">
+<title>Alpha Awesomeness</title>
+<link rel="stylesheet" href="/css/app.css" media="all"/>
 </head>
 <body>
-	<h1>Page Dimensions</h1>
-	
-	<div id="login">
-		<form action="/" method="get">
-			<label for="Width">Width:</label>
-			<input type="text" id="width" placeholder="640"/>
 
-			<label for="Height">Height:</label>
-			<input type="text" id="height" placeholder="360"/>
+<section class="container">
+  <div class="row">
+    <div class="columns small-12 medium-8 large-9">
+      <article>
+        <h1>Page Dimensions</h1>
 
-			<input type="submit" value="Get Link"/>
-		</form>
-	</div>
+        <div id="login">
+          <form action="/" method="get">
+            <label for="Width">Width:</label>
+            <input type="text" id="width" placeholder="640"/>
 
-<img class="content" src="http://localhost:3000/200/400/274575/150"/>
+            <label for="Height">Height:</label>
+            <input type="text" id="height" placeholder="360"/>
+
+            <input type="submit" value="Get Link"/>
+          </form>
+        </div>
+
+        <img class="content" src="http://localhost:3000/200/400/274575/150"/>
+      </article>
+    </div>
+    <div class="columns small-12 medium-4 large-3">
+      <aside>
+        <h3>Navigation</h3>
+        <div class="row">
+          <ul class="side-nav panel column small-12" role="navigation" title="Navigation">
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/ordonezalex/alphaAwesomeness.js" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+        <h3>Authors</h3>
+        <div class="row">
+          <ul class="vcard column small-12">
+            <li class="fn">Austin Mayer</li>
+            <li class="email"><a href="mailto:#">@example.com</a></li>
+          </ul>
+        </div>
+        <div class="row">
+          <ul class="vcard column small-12">
+            <li class="fn">Alex Ordonez</li>
+            <li class="email"><a href="mailto:me@ordonezalex.com">me@ordonezalex.com</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
-

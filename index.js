@@ -15,8 +15,6 @@ app.get("/", function(req, res){
 
 app.get("/:width/:height/:color?/:alpha?", function(req, res){
 
-	// Documentation -- https://www.npmjs.com/package/node-png
-
 	// Getting color from url.
 	var color = req.params.color;
 
@@ -31,8 +29,11 @@ app.get("/:width/:height/:color?/:alpha?", function(req, res){
 	if (typeof(alpha) == "undefined") {
 		alpha = "255";
 		console.log("Alpha is set to default: " + alpha);
-	} else if (alpha > 255) {
+	} else if (alpha > 100) {
 		alpha = "255";
+		console.log("Alpha is set to default: " + alpha);
+	}else{
+		alpha = (alpha*255)/100;
 		console.log("Alpha is set to default: " + alpha);
 	}
 

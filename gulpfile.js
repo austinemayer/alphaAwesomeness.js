@@ -1,23 +1,24 @@
-'use strict';
 
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var sass = require('gulp-less');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var less = require('gulp-less');
 
-gulp.task('sass', function () {
-  gulp.src('./assets/scss/**/*.scss')
-      .pipe(sourcemaps.init())
-      //.pipe(uglify())
-      .pipe(sass({
-        includePaths: ['bower_components/foundation/scss']
-      }).on('error', sass.logError))
-      .pipe(sourcemaps.write('./public/maps'))
-      .pipe(gulp.dest('./public/css'));
+
+gulp.task('less', function(){
+    return gulp.src('assets/less/style.less')
+    	.pipe(sourcemaps.init())
+        .pipe(less())
+        .pipe(autoprefixer('last 3 versions'))
+        //.pipe(uglify())
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./assets/scss/**/*.scss', ['sass']);
+gulp.task('watch', function () {
+	gulp.watch('assets/less/*.less', ['less']);
 });
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['watch']);

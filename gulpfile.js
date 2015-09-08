@@ -8,7 +8,7 @@ var less = require('gulp-less');
 
 
 gulp.task('less', function(){
-    return gulp.src('assets/less/style.less')
+    return gulp.src('public/assets/less/style.less')
     	.pipe(sourcemaps.init())
         .pipe(less())
         .pipe(autoprefixer('last 3 versions'))
@@ -18,7 +18,7 @@ gulp.task('less', function(){
 });
 
 gulp.task('watch', function () {
-	gulp.watch('assets/less/*.less', ['less']);
+	gulp.watch('public/assets/less/*.less', ['less']);
 });
 
 gulp.task('default', ['watch']);
